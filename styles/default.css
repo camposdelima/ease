@@ -1,0 +1,16 @@
+h1 {
+	font-size: 6em;
+	/* line-height: 3em; */
+}
+
+.linkPanel a:before {
+	content: '» ';
+}
+
+.linkPanel a {
+	padding: 0;
+	display: list-item;
+	margin: 5px;
+	text-decoration: none;
+	color: darkblue;
+}
