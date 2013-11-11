@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'ease';
-$db['default']['password'] = 'ease123';
-$db['default']['database'] = 'EASE';
+$db['default']['hostname'] = '186.202.152.45';
+$db['default']['username'] = 'site13667451081';
+$db['default']['password'] = 'j0k3r5';
+$db['default']['database'] = 'site13667451081';
 $db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

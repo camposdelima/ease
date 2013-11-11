@@ -36,8 +36,7 @@ class StudentModel extends CI_Model {
 		
 		$query = $this->db->get('alunos');
 		
-		if($query->num_rows() == 0) return false;
-	 
+		if($query->num_rows() == 0) return false;	 
 		
 		return $query->result();
 		

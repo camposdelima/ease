@@ -14,11 +14,17 @@ class Users extends CI_Controller {
 	}
 	
 	public function authenticate() {
-		$username = $this->input->get('user')?: 'empty';
-		$pass = $this->input->get('pass')?: 'empty';
+		$username = isset($this->input->get('user')) ?
+							$this->input->get('user')
+							:'empty';
+		$pass = isset($this->input->get('pass'))?
+							$this->input->get('pass')
+							:'empty';
 
-		$user = $this->UserModel->get(array('usuario' => $username, 'senha' => md5($pass)))[0];
-		
+
+
+		$user = $this->UserModel->get(array('usuario' => $username, 'senha' => md5($pass)));
+		$user = $user[0];
 		
 		if($user != null && $user->ativo) {
 			$this->session->set_userdata('user', $user);
