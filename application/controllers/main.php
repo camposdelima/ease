@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Main extends CI_Controller {
+class Main extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,7 +19,22 @@ class Main extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('main');
+		//	$this->load->view('main');
+	//	$this->load->library('doctrine');
+	
+		//$em = $this->doctrine->em;
+		
+		//$user = $this->em->find('Entities\User', 3);
+		
+		
+		//print_r($user);
+		$user = new Entity\User;
+		//$user->setUsername('Joseph');
+		//$user->setPassword('secretPassw0rd');
+		//$user->setEmail('josephatwildlyinaccuratedotcom');
+		
+		//$em->persist($user);
+		//$em->flush();
 	}
 }
 

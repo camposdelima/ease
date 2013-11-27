@@ -1,60 +1,64 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Users extends CI_Controller {
+class Users extends MY_Controller {
 	function __construct()
     {
         parent::__construct();
-		
-		$this->load->model('UserModel');
     }
 	
-	public function index()
-	{		
-				
-	}
-	
-	public function authenticate() {
-		$username = isset($this->input->get('user')) ?
-							$this->input->get('user')
-							:'empty';
-		$pass = isset($this->input->get('pass'))?
-							$this->input->get('pass')
-							:'empty';
-
-
-
-		$user = $this->UserModel->get(array('usuario' => $username, 'senha' => md5($pass)));
-		$user = $user[0];
+	public function Authenticate() {
+			
+		$username = $this->input->get('user');
+		$pass = $this->input->get('pass');		
+		$user = null;
+			
+		if( strlen($username) > 0 && strlen($pass) > 0) {
+					
+			$user = $this->em->getRepository('Entities\User')
+								->findOneBy(array(
+												'username' => $username
+												,'password' => $this->BCrypt($pass)
+												)
+											);
+											
+		}
 		
-		if($user != null && $user->ativo) {
+		if($user != null && $user->isActive()) {
 			$this->session->set_userdata('user', $user);
 		}
 		
 		$this->WriteUser($user);
 	}
 	
-	private function WriteUser($user) {
-		$success = $user != null;
-		
-		$result = array(
-						'success' => $success
-						,'user' => $user
-						);
-			
-		$jResult = json_encode($result);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output($jResult);
-	
+	public function Logout() {
+		$this->session->sess_destroy();
 	}
 	
-	public function getAuthenticatedUser() {
+	public function GetAuthenticatedUser() {
 
 		$user = $this->session->userdata('user');
 		
 		$this->WriteUser($user);			
 	}
+	
+	private function WriteUser($user) {
+		$message = null;		
+		
+		
+		if($user == null) {
+			$message = 'Credenciais inválidas.';
+		}
+	
+		$this->WriteJSON($user, $message);
+	}
+	
+	private function BCrypt($text) {
+		return crypt(
+					$text,
+					'$2a$07$'.$this->config->item('encryption_key').'$'
+		);
+	}
+	
 	
 }
 

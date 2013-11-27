@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Utils extends CI_Controller {
+class Utils extends MY_Controller {
 	function __construct()
     {
         parent::__construct();
@@ -13,40 +13,40 @@ class Utils extends CI_Controller {
 				
 	}
 	
-	public function getCities() {
-		$this->load->model('CityModel');
-		
-		$cities =  $this->CityModel->get(array( 'cast(ativo as int) =' =>  true));
-		
-		$jResult = json_encode($cities);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output($jResult);
+	public function GetCities() {
+		return $this->GetUtil('City');				
 	}
 	
-	public function getCategories() {
-		$this->load->model('CategoryModel');
-		
-		$categories =  $this->CategoryModel->get(array( 'cast(ativo as int) =' =>  true));
-		
-		$jResult = json_encode($categories);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output($jResult);
+	public function GetCategories() {
+		return $this->GetUtil('Category');
 	}
 	
-	public function getProcesses() {
-		$this->load->model('ProcessModel');
+	public function GetProcesses() {
+		return $this->GetUtil('Process'); 
+	}
+	
+	public function GetManufacturers() {
+		return $this->GetUtil('Vehicle\\Manufacturer');				
+	}	
+	
+	public function GetModels() {
+		return $this->GetUtil('Vehicle\\Model');				
+	}
+	public function GetColors() {
+		return $this->GetUtil('Vehicle\\Color');				
+	}	
+	
+	public function GetEmployee() {
+		return $this->GetUtil('Employee');				
+	}	
+	
+	public function GetVehicle() {
+		return $this->GetUtil('Vehicle\\Vehicle');				
+	}	
 		
-		$processes =  $this->ProcessModel->get(array( 'cast(ativo as int) =' =>  true));
-		
-		$jResult = json_encode($processes);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output($jResult);
+	private function GetUtil($entityName) {
+		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);
+		$this->WriteJSON($collection);
 	}
 	
 }
