@@ -19,8 +19,10 @@ class Main extends MY_Controller {
 	 */
 	public function index()
 	{
+	
+	echo 'oi';
 		//	$this->load->view('main');
-	//	$this->load->library('doctrine');
+		//	$this->load->library('doctrine');
 	
 		//$em = $this->doctrine->em;
 		
@@ -28,7 +30,7 @@ class Main extends MY_Controller {
 		
 		
 		//print_r($user);
-		$user = new Entity\User;
+		//$user = new Entity\User;
 		//$user->setUsername('Joseph');
 		//$user->setPassword('secretPassw0rd');
 		//$user->setEmail('josephatwildlyinaccuratedotcom');

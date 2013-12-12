@@ -33,6 +33,11 @@ class Category
 		return $this->active;
 	}	
 	
+	
+	public function SetName($value) {
+		$this->name = $value;
+	}
+	
 	public function ToArray() {
 		return array(
 		            'id' => $this->id,

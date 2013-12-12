@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
- * @Table(name="municipios")
+ * @Table(name="cidades")
  */
 class City
 {
@@ -32,6 +32,10 @@ class City
 	public function IsActive() {
 		return $this->active;
 	}	
+	
+	public function SetName($value) {
+		$this->name = $value;
+	}
 	
 	public function ToArray() {
 		return array(
