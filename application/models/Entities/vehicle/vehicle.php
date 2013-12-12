@@ -75,35 +75,6 @@ class Vehicle
 		
 	}
 	
-	public function SetActive($value) {
-		$this->active 	= $value;	
-	}
-	
-	public function SetEmployee($value) {
-		$this->employee	= $value;	
-	}
-	
-	public function SetModel($value) {
-		$this->model	= $value; 
-	} 
-	
-	public function SetColor($value) {
-		$this->color 	= $value; 
-	} 
-	
-	
-	public function SetBranch($value) {
-		$this->branch	= $value;	
-	}
-	
-	public function SetPlate($value) {
-		$this->plate	= $value;
-	}
-	
-	public function SetYear($value) {
-		$this->year		= $value;
-	}
-	
 	public function ToArray() {		
 		return array(
 		            'id' => $this->id,

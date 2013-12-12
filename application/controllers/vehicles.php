@@ -30,7 +30,7 @@ class Vehicles extends MY_Controller {
 		print_r(json_decode($teste));
 	}
 	
-	public function Insert() {
+	public function Add() {
 		$data = json_decode($this->input->post('data'));
 		$entity = 	new Entities\Vehicle\Vehicle();		
 		
