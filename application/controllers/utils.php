@@ -8,11 +8,14 @@ class Utils extends MY_Controller {
 		//;
     }
 	
+<<<<<<< HEAD
 	public function index()
 	{		
 		echo 'oi';
 	}
 	
+=======
+>>>>>>> 6a91e8d8cbfabf3f8d5631d63ce3e994cb9224c2
 	public function GetCities() {
 		return $this->GetUtil('City');				
 	}
@@ -25,29 +28,11 @@ class Utils extends MY_Controller {
 		return $this->GetUtil('Process'); 
 	}
 	
-	public function GetManufacturers() {
-		return $this->GetUtil('Vehicle\\Manufacturer');				
-	}	
-	
-	public function GetModels() {
-		return $this->GetUtil('Vehicle\\Model');				
-	}
-	public function GetColors() {
-		return $this->GetUtil('Vehicle\\Color');				
-	}	
-	
-	public function GetEmployee() {
-		return $this->GetUtil('Employee');				
-	}	
-	
-	public function GetVehicle() {
-		return $this->GetUtil('Vehicle\\Vehicle');				
+	public function GetStudents() {	
+		return $this->GetUtil('Student');				
 	}	
 		
-	private function GetUtil($entityName) {
-		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);
-		$this->WriteJSON($collection);
-	}
+	
 	
 }
 

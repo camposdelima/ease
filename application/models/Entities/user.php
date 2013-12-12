@@ -23,7 +23,6 @@ class User
      */
     protected $active;
 
-
     /**
      * @Column(name="usuario", type="string", length=30, unique=true, nullable=false)
      */
@@ -36,8 +35,20 @@ class User
 
 	public function IsActive() {
 		return $this->active;
+	}
+	
+	public function SetActive($value) {
+		$this->active = $value;
+	}
+	
+	public function SetPassword($value) {
+		$this->password = $value;
 	}	
 	
+	public function SetUsername($value) {
+		$this->username = $value;
+	}
+		
 	public function ToArray() {
 		return array(
 		            'id' => $this->id,

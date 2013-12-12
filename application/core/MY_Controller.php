@@ -8,11 +8,17 @@ class MY_Controller extends CI_Controller {
 		$this->em = $this->doctrine->em;
     }	
 	
-	function WriteJSON($data, $message=null) {
+	protected function GetUtil($entityName) {
+		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);		
+		$this->WriteJSON($collection);
+	}
+	
+	protected function WriteJSON($data, $message=null, $success=null) {
+			
 		$data = $this->ConvertToList($data);
 				
 		$result = array(
-						'success' => $data != null
+						'success' => ($success!=null?$success: $data != null)
 						,'data' => $data
 						,'message' => $message
 						);
@@ -33,7 +39,7 @@ class MY_Controller extends CI_Controller {
 			}
 			
 			return $nArr;
-		} else {
+		} elseif(is_object($arr)) {
 			$arr = $arr->ToArray();
 		}
 		return $arr;

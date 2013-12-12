@@ -21,7 +21,7 @@ class Vehicle
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = TRUE;
 
   	/**
 	 *  @OneToOne(targetEntity="Entities\branch")
@@ -59,16 +59,30 @@ class Vehicle
 	
 	public function IsActive() {
 		return $this->active;
-	}	
+	}
 	
-	public function ToArray() {
+	public function GetID() {
+		return $this->id;
+	}
+	
+	public function Set($data) {
+		$this->branch 	= $data->branch;
+		$this->employee = $data->employee;
+		$this->model 	= $data->model;
+		$this->color 	= $data->color;
+		$this->plate 	= $data->plate;
+		$this->year 	= $data->year;
+		
+	}
+	
+	public function ToArray() {		
 		return array(
 		            'id' => $this->id,
 		            'active'=> $this->active,
-		            'branch'=> $this->branch->ToArray(),
-		            'employee'=> $this->employee->ToArray(),
-		            'model'=> $this->model->ToArray(),
-		            'color'=> $this->color->ToArray(),
+		           'branch'=> ($this->branch?$this->branch->ToArray():null),
+		            'employee'=> ($this->employee?$this->employee->ToArray():null),
+		            'model'=> ($this->model?$this->model->ToArray():null),
+		            'color'=> ($this->color?$this->color->ToArray():null),
 		            'plate' => $this->plate,
 		            'year' => $this->year
 		        );
