@@ -10,7 +10,7 @@ class Utils extends MY_Controller {
 	
 	public function index()
 	{		
-				
+		echo 'oi';
 	}
 	
 	public function GetCities() {

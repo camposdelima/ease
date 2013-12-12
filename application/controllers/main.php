@@ -19,16 +19,17 @@ class Main extends MY_Controller {
 	 */
 	public function index()
 	{
-		//	$this->load->view('main');
-	//	$this->load->library('doctrine');
+		$this->load->view('../../frontend/login.html');
+		//$this->load->library('doctrine');
 	
 		//$em = $this->doctrine->em;
 		
 		//$user = $this->em->find('Entities\User', 3);
 		
-		
+			
 		//print_r($user);
-		$user = new Entity\User;
+		
+		//$user = new Entity\User;
 		//$user->setUsername('Joseph');
 		//$user->setPassword('secretPassw0rd');
 		//$user->setEmail('josephatwildlyinaccuratedotcom');
