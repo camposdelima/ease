@@ -1,0 +1,431 @@
+		<!DOCTYPE html>
+		<html ng-app lang="en">
+			<head>
+				<meta charset="utf-8" />
+				<title>Auto-Escola</title>
+
+				<meta name="description" content="Static &amp; Dynamic Tables" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+				<!-- basic styles -->
+
+				<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+				<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+
+				<!--[if IE 7]>
+				  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+				<![endif]-->
+
+				<!-- page specific plugin styles -->
+
+				<link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.custom.min.css" />
+				<link rel="stylesheet" href="assets/css/chosen.css" />
+				<link rel="stylesheet" href="assets/css/datepicker.css" />
+
+				<!-- fonts -->
+				<link rel="stylesheet" href="assets/css/select2.css" />
+
+				<link rel="stylesheet" href="assets/css/ace-fonts.css" />
+
+				<!-- ace styles -->
+				<link rel="stylesheet" href="assets/css/ace-fonts.css" />
+
+				<!-- ace styles -->
+
+				<link rel="stylesheet" href="assets/css/ace.min.css" />
+				<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+				<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+
+				<script type="text/javascript" src="assets/js/angular.min.js"></script>
+
+				<!--[if lte IE 8]>
+				  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+				<![endif]-->
+
+				<!-- inline styles related to this page -->
+
+				<!-- ace settings handler -->
+
+				
+
+				<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+				<!--[if lt IE 9]>
+				<script src="assets/js/html5shiv.js"></script>
+				<script src="assets/js/respond.min.js"></script>
+				<![endif]-->
+			</head>
+
+			<body ng-controller="indexController">
+				<div class="navbar navbar-default" id="navbar">
+					<script type="text/javascript">
+						try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="navbar-container" id="navbar-container">
+						<div class="navbar-header pull-left">
+							<a href="#" id="dashboard" class="navbar-brand menu-load" data-page="dashboard.html" >
+								<small>
+									<i class="icon-leaf"></i>
+									Auto-Escola
+								</small>
+							</a><!-- /.brand -->
+						</div><!-- /.navbar-header -->
+
+
+<ul class="hide">
+									<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-load" data-page="dashboard.html" href="#">Home</a>
+									</li>
+									<li class="active">Dashboard</li>
+								</ul><!-- .breadcrumb -->
+
+						<div class="navbar-header pull-right" role="navigation">
+							<ul class="nav ace-nav">
+								<li class="light-blue">
+									<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+										<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
+										<span class="user-info">
+											<small>Welcome,</small>
+											Jason
+										</span>
+
+										<i class="icon-caret-down"></i>
+									</a>
+
+									<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+										<li>
+											<a href="#">
+												<i class="icon-user"></i>
+												Profile
+											</a>
+										</li>
+
+										<li class="divider"></li>
+
+										<li>
+											<a href="login.html">
+												<i class="icon-off"></i>
+												Logout
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul><!-- /.ace-nav -->
+						</div><!-- /.navbar-header -->
+					</div><!-- /.container -->
+				</div>
+
+				<div class="main-container" id="main-container">
+					<script type="text/javascript">
+						try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+					</script>
+
+					<div class="main-container-inner">
+						<a class="menu-toggler" id="menu-toggler" href="#">
+							<span class="menu-text"></span>
+						</a>
+
+						<div class="sidebar" id="sidebar">
+							<script type="text/javascript">
+								try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+							</script>
+
+							<ul class="nav nav-list">
+								<li>
+									<a href="#" class="dropdown-toggle">
+										<i class="icon-desktop"></i>
+										<span class="menu-text"> Alunos </span>
+
+										<b class="arrow icon-angle-down"></b>
+									</a>
+
+									<ul class="submenu">
+									
+									
+														<li>
+															<a class="menu-load" data-page="listStudent.html" href="#">
+
+															
+																<i class="icon-eye-open"></i>
+																Listar
+															</a>
+														</li>
+
+														<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+																<li>
+																	<a class="menu-load" data-page="listStudent.html" href="#">Alunos</a>
+																</li>
+																<li class="active">Listar
+																</li>
+															</ul>
+									
+						<li>
+															<a class="menu-load" data-page="createStudent.html" href="#">
+																<i class="icon-plus"></i>
+																Novo
+															</a>
+														</li>
+
+														<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+															<li>
+													<a class="menu-breadcrump" data-page="listStudent.html" href="#">Aluno</a>
+												</li>
+												<li class="active">Novo</li>
+														</ul>
+										
+									</ul>
+								</li>
+
+		<li>
+									<a href="#" class="dropdown-toggle">
+										<i class="icon-desktop"></i>
+										<span class="menu-text"> Veículos </span>
+
+										<b class="arrow icon-angle-down"></b>
+									</a>
+
+									<ul class="submenu">
+									
+									
+														<li>
+															<a data-page="listVehicle.html" class="menu-load" href="#">
+																<i class="icon-eye-open"></i>
+																Listar
+															</a>
+														</li>
+
+															<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+												<li class="active">Listar</li>
+														</ul>
+									
+						<li>
+															<a data-page="createVehicle.html" class="menu-load" href="#">
+																<i class="icon-plus"></i>
+																Novo
+															</a>
+														</li>
+
+															<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+															<li>
+													<a class="menu-breadcrump" data-page="listVehicle.html" href="#">Veículos</a>
+												</li>
+												<li class="active">Novo</li>
+														</ul>
+										
+									</ul>
+								</li>
+								
+								
+								<li>
+									<a href="#" class="dropdown-toggle">
+										<i class="icon-desktop"></i>
+										<span class="menu-text"> Funcionários </span>
+
+										<b class="arrow icon-angle-down"></b>
+									</a>
+
+									<ul class="submenu">
+									
+									
+														<li>
+															<a data-page="listEmployee.html" class="menu-load" href="#">
+																<i class="icon-eye-open"></i>
+																Listar
+															</a>
+														</li>
+
+														<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+												<li class="active">Listar</li>
+														</ul>
+									
+						<li>
+															<a data-page="createEmployee.html" class="menu-load" href="#">
+																<i class="icon-plus"></i>
+																Novo
+															</a>
+														</li>
+
+														<ul class="hide">
+														<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-breadcrump" data-page="dashboard.html" href="#">Home</a>
+									</li>
+															<li>
+													<a class="menu-breadcrump" data-page="listEmployee.html" href="#">Funcionários</a>
+												</li>
+												<li class="active">Novo</li>
+														</ul>
+
+
+										
+									</ul>
+								</li>
+								
+								<li>
+									<a href="#" class="dropdown-toggle">
+										<i class="icon-desktop"></i>
+										<span class="menu-text"> Financeiro </span>
+
+										<b class="arrow icon-angle-down"></b>
+									</a>
+
+									<ul class="submenu">
+									
+									
+														<li>
+															<a href="#">
+																<i class="icon-eye-open"></i>
+																Listar
+															</a>
+														</li>
+									
+						<li>
+															<a href="#">
+																<i class="icon-plus"></i>
+																Novo
+															</a>
+														</li>
+										
+									</ul>
+								</li>
+								
+								<li>
+									<a href="#" class="dropdown-toggle">
+										<i class="icon-desktop"></i>
+										<span class="menu-text"> Agenda </span>
+									</a>
+								</li>
+								
+								</ul><!-- /.nav-list -->
+
+							<div class="sidebar-collapse" id="sidebar-collapse">
+								<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+							</div>
+
+							<script type="text/javascript">
+								try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+							</script>
+						</div>
+
+						<div id="main-content" class="main-content">
+						<div class="breadcrumbs" id="breadcrumbs">
+								<script type="text/javascript">
+									try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+								</script>
+
+								<ul class="breadcrumb">
+									<li>
+										<i class="icon-home home-icon"></i>
+										<a class="menu-load" data-page="dashboard.html" href="#">Home</a>
+									</li>
+									<li class="active">Dashboard</li>
+								</ul><!-- .breadcrumb -->
+							</div>
+						<div  ng-include="tpl.contentUrl" ></div>
+						</div>
+
+				</div><!-- /.main-container -->
+
+				<!-- basic scripts -->
+
+				<!--[if !IE]> -->
+
+				<script type="text/javascript">
+					window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+				</script>
+
+				<!-- <![endif]-->
+
+				<!--[if IE]>
+		<script type="text/javascript">
+		 window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+		</script>
+		<![endif]-->
+
+				<!-- basic scripts -->
+
+				<!--[if !IE]> -->
+
+				<script type="text/javascript">
+					window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+				</script>
+
+				<!-- <![endif]-->
+
+				<!--[if IE]>
+		<script type="text/javascript">
+		 window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+		</script>
+		<![endif]-->
+
+				<script type="text/javascript">
+					if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+				</script>
+				<script src="assets/js/bootstrap.min.js"></script>
+				<script src="assets/js/typeahead-bs2.min.js"></script>
+				
+				<script src="assets/js/ace-extra.min.js"></script>
+				<!-- page specific plugin scripts -->
+
+				<!--[if lte IE 8]>
+				  <script src="assets/js/excanvas.min.js"></script>
+				<![endif]-->
+
+				<script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+				<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+		 		<script src="assets/js/jquery.slimscroll.min.js"></script>
+				<script src="assets/js/jquery.easy-pie-chart.min.js"></script>
+		 		<script src="assets/js/jquery.sparkline.min.js"></script>
+				<script src="assets/js/flot/jquery.flot.min.js"></script>
+				<script src="assets/js/flot/jquery.flot.pie.min.js"></script>
+				<script src="assets/js/flot/jquery.flot.resize.min.js"></script>
+				<script src="assets/js/jquery.dataTables.min.js"></script>
+				<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+
+				<script src="assets/js/date-time/bootstrap-datepicker.min.js"></script>
+				<script src="assets/js/date-time/moment.min.js"></script>
+				<script src="assets/js/jquery.autosize.min.js"></script>
+				<script src="assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+				<script src="assets/js/jquery.maskedinput.min.js"></script>
+				<script src="assets/js/bootstrap-tag.min.js"></script>
+				<script src="assets/js/chosen.jquery.min.js"></script>
+
+				<!-- ace scripts -->
+
+				<script src="assets/js/ace-elements.min.js"></script>
+				<script src="assets/js/ace.min.js"></script>
+
+				
+				<script type="text/javascript" src="controllers/indexController.js"></script>
+				<script type="text/javascript" src="controllers/dashboardController.js"></script>
+				<script type="text/javascript" src="controllers/studentController.js"></script>
+				<script type="text/javascript" src="controllers/employeeController.js"></script>
+				<script type="text/javascript" src="controllers/vehicleController.js"></script>
+				<script type="text/javascript" src="controllers/utils.js"></script>
+
+				<!-- inline scripts related to this page -->
+			</body>
+		</html>
