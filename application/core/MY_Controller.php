@@ -6,17 +6,49 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
 		
 		$this->em = $this->doctrine->em;
+		$this->load->helper("convert");
     }	
 	
-	protected function GetUtil($entityName) {
-		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);		
+	protected function GetUtil($entityName) {		
+		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);						
 		$this->WriteJSON($collection);
 	}
 	
-	protected function WriteJSON($data, $message=null, $success=null) {
-			
-		$data = $this->ConvertToList($data);
+	protected function Persist($entityName) {		
+		$data = json_decode($this->input->post('data'));
+		
+		if($data == null) {
+			$this->WriteJSON(null, "Parametro 'data' é um JSON inválido.", false);
+			return;
+		}
 				
+		if(isset($data->id) && $data->id > 0 ) {			
+			$entity = $this->em->find($entityName, $data->id);			
+		} else {						
+			$entity = new $entityName();					
+		}	
+		
+		$this->Set($data, $entity);
+		
+		//print_r($entity->toArray());
+		//return;
+		
+		$this->em->persist($entity);		
+		$this->em->flush();
+		
+		
+		$this->WriteJSON($entity->GetID());
+	}
+	
+	protected function Set($data, $entity) {
+		$entity->Set($data);				
+	}
+	
+	protected function WriteJSON($data, $message=null, $success=null) {
+		
+		$data = EntitiesToList($data);
+		
+		
 		$result = array(
 						'success' => ($success!=null?$success: $data != null)
 						,'data' => $data
@@ -28,21 +60,6 @@ class MY_Controller extends CI_Controller {
 		$this->output
 			->set_content_type('application/json')
 			->set_output($jResult);
-	}
-	
-	private function ConvertToList($arr) {
-		if ( is_array($arr) ) {
-			$nArr = array();
-			
-			for($i = 0; $i < count($arr); $i++) {			
-				$nArr[$i] = $arr[$i]->ToArray();
-			}
-			
-			return $nArr;
-		} elseif(is_object($arr)) {
-			$arr = $arr->ToArray();
-		}
-		return $arr;
 	}
 }
 
