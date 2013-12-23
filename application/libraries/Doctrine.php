@@ -41,8 +41,9 @@ class Doctrine
         $config = Setup::createAnnotationMetadataConfiguration($metadata_paths, $dev_mode = true, $proxies_dir);
         $this->em = EntityManager::create($connection_options, $config);
 
-  		//$logger = new EchoSQLLogger;
-    	//$config->setSQLLogger($logger);
+
+//  		$logger = new EchoSQLLogger;
+//    	$config->setSQLLogger($logger);
 	
         $loader = new ClassLoader($models_namespace, $models_path);
         $loader->register();

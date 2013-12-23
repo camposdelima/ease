@@ -2,13 +2,11 @@
 
 namespace Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * @Entity
  * @Table(name="categorias")
  */
-class Category
+class Category extends \Entities\MY_Entity
 {
 
     /**
@@ -21,28 +19,11 @@ class Category
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
 
     /**
-     * @Column(name="nome", type="string", length=4, unique=true, nullable=false)
+     * @Column(name="nome", type="string", length=2, unique=true, nullable=false)
      */
     protected $name;
-
-	public function IsActive() {
-		return $this->active;
-	}	
-	
-	
-	public function SetName($value) {
-		$this->name = $value;
-	}
-	
-	public function ToArray() {
-		return array(
-		            'id' => $this->id,
-		            'active'=> $this->active,
-		            'name' => $this->name
-		        );
-	}
 }

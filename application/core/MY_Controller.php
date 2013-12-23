@@ -6,48 +6,135 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
 		
 		$this->em = $this->doctrine->em;
-		$this->load->helper("convert");
     }	
 	
-	protected function GetUtil($entityName) {		
-		$collection = $this->em->getRepository('Entities\\'.$entityName)->findByActive(1);						
-		$this->WriteJSON($collection);
+	protected function GetEntityName($entityName) {
+		return 'Entities\\'.$entityName;
 	}
 	
-	protected function Persist($entityName) {		
-		$data = json_decode($this->input->post('data'));
-		
-		if($data == null) {
-			$this->WriteJSON(null, "Parametro 'data' é um JSON inválido.", false);
-			return;
+	protected function GetUtil($entityName) {		
+		$collection = $this->em->getRepository($this->GetEntityName($entityName))->findByActive(1);
+
+		try {		
+			$this->WriteJSON(\Entities\MY_Entity::DataExtract($collection));
+		} catch(Exception $e) {
+			print_r($e);
 		}
+	}
+	
+	
+	protected function Save($entityName) {
 				
-		if(isset($data->id) && $data->id > 0 ) {			
-			$entity = $this->em->find($entityName, $data->id);			
-		} else {						
+		$data = $this->GetPostJSON();
+		
+		if($data == null) {			
+			return;
+		}		 
+		
+		if(isset($data->id) && $data->id > 0 ) {
+			$entity = $this->FindEntity($data, $entityName);
+			
+			if($entity == null) {
+				return;
+			}
+			
+		} else {
+			$entityName = $this->GetEntityName($entityName);						
 			$entity = new $entityName();					
 		}	
-		
+	
 		$this->Set($data, $entity);
-		
-		//print_r($entity->toArray());
-		//return;
-		
-		$this->em->persist($entity);		
-		$this->em->flush();
-		
+			
+		$this->em->persist($entity);	
+		$this->Flush();
 		
 		$this->WriteJSON($entity->GetID());
 	}
+	
+	
+	protected function Delete($entityName) {
+		$data = $this->GetPostJSON();
+		
+			
+		if($data == null) {			
+			return;
+		}		
+		
+		$entity = $this->FindEntity($data, $entityName); 
+
+		if($entity == null) {
+			return;
+		}		
+		
+		$this->em->remove($entity);
+		$this->Flush();
+		
+		$this->WriteJSON($data->id);
+	}
+	
+	
+	
+	protected function GetPostJSON() {
+		$data = ($this->input->post('data')?:$this->input->get('data'));
+		
+		$data = json_decode($data);
+		
+		if($data == null) {
+			$this->WriteJSON(null, "Parametro 'data' é um JSON inválido.");
+		}
+		
+		return $data;
+	}
+	
+	private function FindEntity($data, $entityName) {				
+		
+		$entity = $this->em->find($this->GetEntityName($entityName), (isset($data->id)?$data->id:0));
+				
+		if($entity == null) {			
+			$this->WriteJSON(null, 'A referência primária ao elemento "'.$entityName.'" é inválida.');
+		}		
+		
+		
+		return $entity;
+	}
+	
+	Private function Flush() {		
+		try {			
+			$this->em->flush();
+		} catch(Exception $ex) {			
+			$this->WriteJSON(null, $ex->getMessage());	
+		}	
+	}
+	
+	
+	protected function SetEntityMember($data, $key, $entityName = null) {
+		if(isset($data->$key)) {
+			if(is_object($data->$key))
+				$data->$key = $data->$key->id;
+			 	
+			$data->$key	= $this->em->find($this->GetEntityName(($entityName?:$key)), $data->$key);
+		}
+	}
+	
+	protected function SetNumericMember($data, $key) {
+		if(strlen($data->$key) > 0 && !is_numeric($data->$key)) 
+			unset($data->$key);					
+	}
+	
+	protected function SetDateMember($data, $key) {
+		if(isset($data->$key)) {			
+			$data->$key = new Datetime($data->$key);
+		}
+	}	
 	
 	protected function Set($data, $entity) {
 		$entity->Set($data);				
 	}
 	
+	
 	protected function WriteJSON($data, $message=null, $success=null) {
 		
-		$data = EntitiesToList($data);
-		
+		//$data = EntitiesToList($data);
 		
 		$result = array(
 						'success' => ($success!=null?$success: $data != null)
@@ -57,9 +144,11 @@ class MY_Controller extends CI_Controller {
 			
 		$jResult = json_encode($result);
 		
-		$this->output
-			->set_content_type('application/json')
-			->set_output($jResult);
+		if(strlen($this->output->get_output()) == 0) {					
+				$this->output
+				->set_content_type('application/json')
+				->set_output($jResult);
+		}
 	}
 }
 

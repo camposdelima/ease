@@ -2,13 +2,11 @@
 
 namespace Entities\Vehicle;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * @Entity
  * @Table(name="modelos")
  */
-class Model
+class Model extends \Entities\MY_Entity
 {
 
     /**
@@ -21,7 +19,7 @@ class Model
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
   	/**
 	 *  @OneToOne(targetEntity="Manufacturer")
@@ -33,17 +31,4 @@ class Model
      * @Column(name="nome", type="string", length=10, unique=true, nullable=false)
      */
     protected $name;
-
-	public function IsActive() {
-		return $this->active;
-	}	
-	
-	public function ToArray() {
-		return array(
-		            'id' => $this->id,
-		            'active'=> $this->active,
-		            'manufacturer'=> $this->manufacturer->ToArray(),
-		            'name' => $this->name
-		        );
-	}
 }

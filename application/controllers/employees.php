@@ -20,9 +20,12 @@ class Employees extends MY_Controller {
 		return $this->GetUtil('Employee\Department');				
 	}	
 	
+	public function GetInstructors() {
+		return $this->GetUtil('Employee\Employee');		
+	}
 	
 	public function Save() {
-		$this->Persist('Entities\Employee\Employee');		
+		$this->Persist('Employee\Employee');		
 	}
 	
 	

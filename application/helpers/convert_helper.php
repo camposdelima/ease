@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
+/**
 if ( ! function_exists('EntitiesToList'))
 {
    	function EntitiesToList($arr) {
@@ -17,4 +17,4 @@ if ( ! function_exists('EntitiesToList'))
 		}
 		return $arr;
 	}
-}
+} **/

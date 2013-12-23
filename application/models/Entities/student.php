@@ -2,15 +2,13 @@
 
 namespace Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * @Entity
  * @Table(name="alunos")
  */
-class Student
+class Student extends My_Entity
 {
-
+		
     /**
      * @Id
      * @Column(type="integer", nullable=false)
@@ -21,7 +19,7 @@ class Student
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
   	/**
 	 *  @OneToOne(targetEntity="branch")
@@ -59,103 +57,80 @@ class Student
     protected $lastname;
 	
 	/**
-     * @Column(name="pai", type="string", length=200, nullable=true)
+     * @Column(name="pai", type="string", length=200)
      */
     protected $father;
 	
 	 /**
-     * @Column(name="mae", type="string", length=200, nullable=true)
+     * @Column(name="mae", type="string", length=200)
      */
     protected $mother;
 
 	/**
-     * @Column(name="nascimento", type="datetime", nullable=false)
+     * @Column(name="nascimento", type="datetime")
      */
     protected $birthdate;
 	
 	/**
-     * @Column(name="cadastro", type="datetime", nullable=false)
+     * @Column(name="cadastro", type="datetime")
      */
     protected $registered;
     
 	 /**
      * @Column(name="sexo", type="boolean", nullable=false)
      */
-    protected $sex;
+    protected $sex = 1;
     
      /**
-     * @Column(name="rua", type="string", length=200, nullable=true)
+     * @Column(name="rua", type="string", length=200)
      */
     protected $street;
 	
 	/**
-     * @Column(name="numero", type="integer", nullable=true)
+     * @Column(name="numero", type="integer")
      */
     protected $number;
 	
 	/**
-     * @Column(name="complemento", type="string", length=100, nullable=true)
+     * @Column(name="complemento", type="string", length=100)
      */
     protected $complementary;
 	
 	/**
-     * @Column(name="bairro", type="string", length=100, nullable=true)
+     * @Column(name="bairro", type="string", length=100)
      */
     protected $district;
 	
 	/**
-     * @Column(name="cep", type="string", length=8, nullable=true)
+     * @Column(name="cep", type="string", length=8)
      */
     protected $cep;	
 	
 	/**
-     * @Column(name="renach", type="string", length=11, nullable=true)
+     * @Column(name="renach", type="string", length=11)
      */
     protected $renach;
 	
 	/**
-     * @Column(name="telefone", type="string", length=10, nullable=true)
+     * @Column(name="telefone", type="string", length=10)
      */
     protected $phone;
 	
 	/**
-     * @Column(name="celular", type="string", length=11, nullable=true)
+     * @Column(name="celular", type="string", length=11)
      */
     protected $cellularPhone;
 	
 	/**
-     * @Column(name="email", type="string", length=200, nullable=true)
+     * @Column(name="email", type="string", length=200)
      */
     protected $email;
-    
-	public function IsActive() {
-		return $this->active;
-	}	
 	
-	public function ToArray() {
-		return array(
-		            'id' => $this->id,
-		            'active'=> $this->active,
-		            'branch'=> $this->branch->ToArray(),
-		            'user'=> $this->user->ToArray(),
-		            'city'=> $this->city->ToArray(),
-		            'placeOfBirth'=> $this->placeOfBirth->ToArray(),
-		            'name'=> $this->name,
-		            'lastname'=> $this->lastname,
-		            'father'=> $this->father,
-		            'mother'=> $this->mother,
-		            'birthdate' => $this->birthdate,
-		            'registered' => $this->registered,
-		            'sex' => $this->sex,
-		            'street' => $this->street,
-		            'number' => $this->number,
-		            'complementary' => $this->complementary,
-		         	'district' => $this->district,
-		            'cep' => $this->cep,
-		            'renach' => $this->renach,
-		            'phone' => $this->phone,
-		            'cellularPhone' => $this->cellularPhone,
-		            'email' => $this->email		            
-		        );
-	}
+	public function __construct()
+    {
+    	//echo $this->registered."|";
+        $this->registered = new \Datetime("now");
+		
+    }
+ 
 }
