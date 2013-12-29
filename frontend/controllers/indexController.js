@@ -1,7 +1,7 @@
 function indexController($scope, $http) {
 
 	$scope.tpl = {};
-	$scope.tpl.contentUrl = 'dashboard.html';
+	$scope.tpl.contentUrl = 'frontend/dashboard.html';
 	//Faz os loads ajax entre as telas
 	$('.menu-load').click(function() {
 		var page = $(this).attr('data-page');

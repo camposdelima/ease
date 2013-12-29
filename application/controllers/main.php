@@ -19,15 +19,8 @@ class Main extends MY_Controller {
 	 */
 	public function index()
 	{
-<<<<<<< HEAD
-		$this->load->view('../../frontend/login.html');
+		$this->load->view('../../frontend/index.html');
 		//$this->load->library('doctrine');
-=======
-	
-	echo 'oi';
-		//	$this->load->view('main');
-		//	$this->load->library('doctrine');
->>>>>>> 6a91e8d8cbfabf3f8d5631d63ce3e994cb9224c2
 	
 		//$em = $this->doctrine->em;
 		
@@ -35,10 +28,7 @@ class Main extends MY_Controller {
 		
 			
 		//print_r($user);
-<<<<<<< HEAD
 		
-=======
->>>>>>> 6a91e8d8cbfabf3f8d5631d63ce3e994cb9224c2
 		//$user = new Entity\User;
 		//$user->setUsername('Joseph');
 		//$user->setPassword('secretPassw0rd');
