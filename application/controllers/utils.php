@@ -8,14 +8,11 @@ class Utils extends MY_Controller {
 		//;
     }
 	
-<<<<<<< HEAD
 	public function index()
 	{		
 		echo 'oi';
 	}
 	
-=======
->>>>>>> 6a91e8d8cbfabf3f8d5631d63ce3e994cb9224c2
 	public function GetCities() {
 		return $this->GetUtil('City');				
 	}

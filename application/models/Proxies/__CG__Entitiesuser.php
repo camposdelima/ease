@@ -42,34 +42,28 @@ class User extends \Entities\User implements \Doctrine\ORM\Proxy\Proxy
     }
 
     
+    public function GetID()
+    {
+        $this->__load();
+        return parent::GetID();
+    }
+
     public function IsActive()
     {
         $this->__load();
         return parent::IsActive();
     }
 
-    public function SetActive($value)
+    public function Set($data)
     {
         $this->__load();
-        return parent::SetActive($value);
+        return parent::Set($data);
     }
 
-    public function SetPassword($value)
+    public function ToArray($fields = NULL)
     {
         $this->__load();
-        return parent::SetPassword($value);
-    }
-
-    public function SetUsername($value)
-    {
-        $this->__load();
-        return parent::SetUsername($value);
-    }
-
-    public function ToArray()
-    {
-        $this->__load();
-        return parent::ToArray();
+        return parent::ToArray($fields);
     }
 
 

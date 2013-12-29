@@ -2,14 +2,13 @@
 
 namespace Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
  * @Table(name="cidades")
  */
-class City
-{
+class City extends \Entities\MY_Entity
+{ 
 
     /**
      * @Id
@@ -21,7 +20,7 @@ class City
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
 
     /**
@@ -31,17 +30,5 @@ class City
 
 	public function IsActive() {
 		return $this->active;
-	}	
-	
-	public function SetName($value) {
-		$this->name = $value;
-	}
-	
-	public function ToArray() {
-		return array(
-		            'id' => $this->id,
-		            'active'=> $this->active,
-		            'name' => $this->name
-		        );
 	}
 }

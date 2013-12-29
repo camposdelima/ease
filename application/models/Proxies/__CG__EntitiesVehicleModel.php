@@ -42,16 +42,28 @@ class Model extends \Entities\Vehicle\Model implements \Doctrine\ORM\Proxy\Proxy
     }
 
     
+    public function GetID()
+    {
+        $this->__load();
+        return parent::GetID();
+    }
+
     public function IsActive()
     {
         $this->__load();
         return parent::IsActive();
     }
 
-    public function ToArray()
+    public function Set($data)
     {
         $this->__load();
-        return parent::ToArray();
+        return parent::Set($data);
+    }
+
+    public function ToArray($fields = NULL)
+    {
+        $this->__load();
+        return parent::ToArray($fields);
     }
 
 

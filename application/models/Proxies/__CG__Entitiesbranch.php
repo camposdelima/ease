@@ -42,22 +42,34 @@ class Branch extends \Entities\Branch implements \Doctrine\ORM\Proxy\Proxy
     }
 
     
+    public function GetID()
+    {
+        $this->__load();
+        return parent::GetID();
+    }
+
     public function IsActive()
     {
         $this->__load();
         return parent::IsActive();
     }
 
-    public function ToArray()
+    public function Set($data)
     {
         $this->__load();
-        return parent::ToArray();
+        return parent::Set($data);
+    }
+
+    public function ToArray($fields = NULL)
+    {
+        $this->__load();
+        return parent::ToArray($fields);
     }
 
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'active', 'name', 'school');
+        return array('__isInitialized__', 'id', 'active', 'name');
     }
 
     public function __clone()

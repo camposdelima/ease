@@ -7,11 +7,13 @@ class Users extends MY_Controller {
     }
 	
 	public function Authenticate() {
-			
-		$username = $this->input->get('user');
-		$pass = $this->input->get('pass');		
+		$data = $this->GetPostJSON();
+		
+		$username = (isset($data->username)?$data->username:null);
+		$pass = (isset($data->password)?$data->password:null);
+				
 		$user = null;
-			
+		
 		if( strlen($username) > 0 && strlen($pass) > 0) {
 					
 			$user = $this->em->getRepository('Entities\User')
@@ -23,11 +25,11 @@ class Users extends MY_Controller {
 											
 		}
 		
-		if($user != null && $user->isActive()) {
+		if($user != null && $user->IsActive()) {
 			$this->session->set_userdata('user', $user);
 		}
 		
-		$this->WriteUser($user);
+		$this->GetAuthenticatedUser();		
 	}
 	
 	public function Logout() {
@@ -36,21 +38,29 @@ class Users extends MY_Controller {
 	
 	public function GetAuthenticatedUser() {
 
-		$user = $this->session->userdata('user');
-		
-		$this->WriteUser($user);			
-	}
-	
-	private function WriteUser($user) {
-		$message = null;		
-		
-		
+		$user = $this->session->userdata('user');	
+				
 		if($user == null) {
 			$message = 'Credenciais inválidas.';
 		}
 	
-		$this->WriteJSON($user, $message);
+		$this->WriteJSON($user);		
 	}
+	
+	public function Delete() {
+		parent::Delete('User');
+	}
+	
+	public function Save() {				
+		parent::Save('User');		
+	}
+	
+	protected function Set($data, $entity) {
+		if(isset($data->password))
+			$data->password = $this->BCrypt($data->password);
+		 
+		parent::Set($data, $entity);		
+	} 
 	
 	private function BCrypt($text) {
 		return crypt(
@@ -62,5 +72,5 @@ class Users extends MY_Controller {
 	
 }
 
-/* End of file user.php */
-/* Location: ./application/controllers/user.php */
+/* End of file users.php */
+/* Location: ./application/controllers/users.php */

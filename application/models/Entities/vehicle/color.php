@@ -2,13 +2,12 @@
 
 namespace Entities\Vehicle;
 
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity
  * @Table(name="cores")
  */
-class Color
+class Color extends \Entities\MY_Entity
 {
 
     /**
@@ -21,23 +20,11 @@ class Color
     /**
      * @Column(name="ativo", type="boolean")
      */
-    protected $active;
+    protected $active = true;
 
 
     /**
      * @Column(name="nome", type="string", length=10, unique=true, nullable=false)
      */
     protected $name;
-
-	public function IsActive() {
-		return $this->active;
-	}	
-	
-	public function ToArray() {
-		return array(
-		            'id' => $this->id,
-		            'active'=> $this->active,
-		            'name' => $this->name
-		        );
-	}
 }

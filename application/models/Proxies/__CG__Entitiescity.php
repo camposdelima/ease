@@ -48,10 +48,22 @@ class City extends \Entities\City implements \Doctrine\ORM\Proxy\Proxy
         return parent::IsActive();
     }
 
-    public function ToArray()
+    public function GetID()
     {
         $this->__load();
-        return parent::ToArray();
+        return parent::GetID();
+    }
+
+    public function Set($data)
+    {
+        $this->__load();
+        return parent::Set($data);
+    }
+
+    public function ToArray($fields = NULL)
+    {
+        $this->__load();
+        return parent::ToArray($fields);
     }
 
 
