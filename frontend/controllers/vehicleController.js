@@ -1,21 +1,41 @@
 function createVehicleController($scope, $http) {
 
 	var ng = $scope;
-
-	$(".chosen-select").chosen();
-	$('.input-mask-date').mask('99/99/9999');
-	$('.phone').mask('(99) 9999-9999');
-	$('.cellphone').mask('(99) 9999-9999?9');
-	$('.cep').mask('99999-999');
-	$('.date-picker').datepicker({
-		autoclose: true
-	}).next().on(ace.click_event, function() {
-		$(this).prev().focus();
-	});
-
+	var aj = $http;
+	
 	$('#btnSaveVehicle').click(function () {
-		console.log(ng.vehicle);
+		var data = new Object();
+		data.data = ng.vehicle;
+		aj.post('Vehicles/Save', data).success(function(result){
+			console.log(result);
+		});
 	})
+
+	var getColors = function(){
+		aj.get('Vehicles/GetColors').success(function(result){
+			ng.listColors = result.data;
+		});
+	};
+
+	var getModels = function(){
+		aj.get('Vehicles/GetModels').success(function(result){
+			ng.listModels = result.data;
+		});
+	};
+
+	var getEmployees = function(){
+		aj.get('Employees/Get').success(function(result){
+			ng.listEmployees = result.data;
+		});
+	};
+
+	var init = function(){
+		getColors();
+		getModels();
+		getEmployees();
+	};
+
+	init();
 
 };
 
@@ -24,11 +44,15 @@ function listVehicleController($scope, $http) {
 	var aj = $http;
 	var ng = $scope;
 
-	var GetStudents = function(){
+	var getVehicles = function(){
 		aj.get('Vehicles/Get').success(function(result) {
-		ng.lista = result.data;
-	});
+			ng.listVehicles = result.data;
+		});
 	};
 
-     GetStudents();
+	ng.editVehicle = function(vehicle){
+		console.log(vehicle);
+	};
+	
+    getVehicles();
 };
