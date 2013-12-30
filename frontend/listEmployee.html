@@ -9,24 +9,23 @@
 										</div>
 
 										<div class="table-responsive">
-											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+											<table ng-table="tableParams" id="tblEmployees" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
 														<th>Nome</th>
-														<th>Telefone</th>
-														<th>Endereço</th>
-
+														<th>Auto-Escola</th>
+														<th>Usuário</th>
 														<th>Opções</th>
 													</tr>
 												</thead>
 
 												<tbody>
-													<tr>
+													<tr ng-repeat="un in listEmployees">
 															<td>
-															<a href="#">app.com</a>
+															{{un.name}}
 														</td>
-														<td>$45</td>
-														<td class="hidden-480">3,330</td>
+														<td>{{un.school.name}}</td>
+														<td>{{un.user.username}}</td>
 
 
 
@@ -36,7 +35,7 @@
 																	<i class="icon-zoom-in bigger-130"></i>
 																</a>
 
-																<a class="green" href="#">
+																<a class="green" ng-click="EditEmployee(un)" href="#">
 																	<i class="icon-pencil bigger-130"></i>
 																</a>
 

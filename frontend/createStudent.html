@@ -1,343 +1,243 @@
-								<div ng-controller="createStudentController" class="part-content">
-									<div class="page-content">
-										<div class="row">
-											<div class="col-xs-12"> 	
+	<div ng-controller="createStudentController" class="part-content">
+		<div class="page-content">
+			<div class="row">
+				<div class="col-xs-12"> 	
 
-												<div class="row-fluid">
-													<div class="span12">
-														<div class="widget-box">
-															<div class="widget-header widget-header-blue widget-header-flat">
-																<h4 class="lighter">Novo Aluno</h4>
+					<div class="row-fluid">
+						<div class="span12">
+							<div class="widget-box">
+								<div class="widget-header widget-header-blue widget-header-flat">
+									<h4 class="lighter">Novo Aluno</h4>
+								</div>
+
+								<div class="widget-body">
+									<div class="widget-main">
+										<div class="step-content row-fluid position-relative" id="step-container">
+											<div class="step-pane active" id="step1">
+												<h3 class="lighter block green">Coloque as informações abaixo:</h3>
+
+												<form class="form-horizontal" id="validation-form" method="get">
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Nome:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.name" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+														<label  class="control-label col-xs-12 col-sm-2 no-padding-right">Sobrenome:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.lastname" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Data de Nascimento:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="icon-calendar"></i>
+																	</span>
+
+																	<input type="text" ng-model="student.birthdate"  id="datepicker" class="form-control col-xs-12 col-sm-12 input-mask-date date-picker" />
+																</div>
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Naturalidade:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<select ng-model="student.naturality" ng-options="item as item.name for item in listCities" class="col-xs-12 col-sm-12" id="form-field-select-1" >
+																	<option value="">Selecione</option>
+																</select>
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Município:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<select ng-model="student.city" ng-options="item as item.name for item in listCities" class="col-xs-12 col-sm-12" id="form-field-select-1" >
+																<option value="">Selecione</option>
+																</select>
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">CEP:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.cep" type="text" class="cep col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">
+															Bairro:	
+														</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.district" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Rua:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.street" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label ng-model="student.complementary" class="control-label col-xs-12 col-sm-2 no-padding-right">
+															Complemento:	
+														</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">E-mail:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.email" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">
+															Telefone:	
+														</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="icon-phone"></i>
+																	</span>
+
+																	<input ng-model="student.phone" type="text" class="phone col-xs-12 col-sm-12" />
+																</div>
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">Celular:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<div class="input-group">
+																	<span class="input-group-addon">
+																		<i class="icon-phone"></i>
+																	</span>
+
+																	<input ng-model="student.cellularPhone" type="text" class="cellphone col-xs-12 col-sm-12" />
+																</div>
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">
+															Nome da Mãe:	
+														</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.mother" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">Nome do Pai:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.father" type="text" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Sexo:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div>
+																<label class="blue">
+																	<input ng-model="student.sex" name="gender" value="1" type="radio" class="ace" />
+																	<span class="lbl"> Male</span>
+																</label>
 															</div>
 
-															<div class="widget-body">
-																<div class="widget-main">
-																	<div class="step-content row-fluid position-relative" id="step-container">
-																		<div class="step-pane active" id="step1">
-																			<h3 class="lighter block green">Coloque as informações abaixo:</h3>
-
-																			<form class="form-horizontal" id="validation-form" method="get">
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Nome:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input ng-model="student.name" type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Sobrenome:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Data de Nascimento:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																								<div class="input-group">
-																							<span class="input-group-addon">
-																								<i class="icon-calendar"></i>
-																							</span>
-
-																							<input type="text" id="datepicker" class="form-control col-xs-12 col-sm-12 input-mask-date date-picker" />
-																							</div>
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Naturalidade:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<select class="col-xs-12 col-sm-11 chosen-select" id="form-field-select-3" >
-																		<option value="">&nbsp;</option>
-																		<option value="AL">Alabama</option>
-																		<option value="AK">Alaska</option>
-																		<option value="AZ">Arizona</option>
-																		<option value="AR">Arkansas</option>
-																		<option value="CA">California</option>
-																		<option value="CO">Colorado</option>
-																		<option value="CT">Connecticut</option>
-																		<option value="DE">Delaware</option>
-																		<option value="FL">Florida</option>
-																		<option value="GA">Georgia</option>
-																		<option value="HI">Hawaii</option>
-																		<option value="ID">Idaho</option>
-																		<option value="IL">Illinois</option>
-																		<option value="IN">Indiana</option>
-																		<option value="IA">Iowa</option>
-																		<option value="KS">Kansas</option>
-																		<option value="KY">Kentucky</option>
-																		<option value="LA">Louisiana</option>
-																		<option value="ME">Maine</option>
-																		<option value="MD">Maryland</option>
-																		<option value="MA">Massachusetts</option>
-																		<option value="MI">Michigan</option>
-																		<option value="MN">Minnesota</option>
-																		<option value="MS">Mississippi</option>
-																		<option value="MO">Missouri</option>
-																		<option value="MT">Montana</option>
-																		<option value="NE">Nebraska</option>
-																		<option value="NV">Nevada</option>
-																		<option value="NH">New Hampshire</option>
-																		<option value="NJ">New Jersey</option>
-																		<option value="NM">New Mexico</option>
-																		<option value="NY">New York</option>
-																		<option value="NC">North Carolina</option>
-																		<option value="ND">North Dakota</option>
-																		<option value="OH">Ohio</option>
-																		<option value="OK">Oklahoma</option>
-																		<option value="OR">Oregon</option>
-																		<option value="PA">Pennsylvania</option>
-																		<option value="RI">Rhode Island</option>
-																		<option value="SC">South Carolina</option>
-																		<option value="SD">South Dakota</option>
-																		<option value="TN">Tennessee</option>
-																		<option value="TX">Texas</option>
-																		<option value="UT">Utah</option>
-																		<option value="VT">Vermont</option>
-																		<option value="VA">Virginia</option>
-																		<option value="WA">Washington</option>
-																		<option value="WV">West Virginia</option>
-																		<option value="WI">Wisconsin</option>
-																		<option value="WY">Wyoming</option>
-																	</select>
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Município:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<select class="col-xs-12 col-sm-11 chosen-select" id="form-field-select-3" >
-																		<option value="">&nbsp;</option>
-																		<option value="AL">Alabama</option>
-																		<option value="AK">Alaska</option>
-																		<option value="AZ">Arizona</option>
-																		<option value="AR">Arkansas</option>
-																		<option value="CA">California</option>
-																		<option value="CO">Colorado</option>
-																		<option value="CT">Connecticut</option>
-																		<option value="DE">Delaware</option>
-																		<option value="FL">Florida</option>
-																		<option value="GA">Georgia</option>
-																		<option value="HI">Hawaii</option>
-																		<option value="ID">Idaho</option>
-																		<option value="IL">Illinois</option>
-																		<option value="IN">Indiana</option>
-																		<option value="IA">Iowa</option>
-																		<option value="KS">Kansas</option>
-																		<option value="KY">Kentucky</option>
-																		<option value="LA">Louisiana</option>
-																		<option value="ME">Maine</option>
-																		<option value="MD">Maryland</option>
-																		<option value="MA">Massachusetts</option>
-																		<option value="MI">Michigan</option>
-																		<option value="MN">Minnesota</option>
-																		<option value="MS">Mississippi</option>
-																		<option value="MO">Missouri</option>
-																		<option value="MT">Montana</option>
-																		<option value="NE">Nebraska</option>
-																		<option value="NV">Nevada</option>
-																		<option value="NH">New Hampshire</option>
-																		<option value="NJ">New Jersey</option>
-																		<option value="NM">New Mexico</option>
-																		<option value="NY">New York</option>
-																		<option value="NC">North Carolina</option>
-																		<option value="ND">North Dakota</option>
-																		<option value="OH">Ohio</option>
-																		<option value="OK">Oklahoma</option>
-																		<option value="OR">Oregon</option>
-																		<option value="PA">Pennsylvania</option>
-																		<option value="RI">Rhode Island</option>
-																		<option value="SC">South Carolina</option>
-																		<option value="SD">South Dakota</option>
-																		<option value="TN">Tennessee</option>
-																		<option value="TX">Texas</option>
-																		<option value="UT">Utah</option>
-																		<option value="VT">Vermont</option>
-																		<option value="VA">Virginia</option>
-																		<option value="WA">Washington</option>
-																		<option value="WV">West Virginia</option>
-																		<option value="WI">Wisconsin</option>
-																		<option value="WY">Wyoming</option>
-																	</select>
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">CEP:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="cep col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">
-																					Bairro:	
-																					</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Rua:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">
-																					Complemento:	
-																					</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">E-mail:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">
-																					Telefone:	
-																					</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																						<div class="input-group">
-																							<span class="input-group-addon">
-																								<i class="icon-phone"></i>
-																							</span>
-
-																							<input type="text" class="phone col-xs-12 col-sm-12" />
-																							</div>
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">Celular:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																						<div class="input-group">
-																							<span class="input-group-addon">
-																								<i class="icon-phone"></i>
-																							</span>
-
-																							<input type="text" class="cellphone col-xs-12 col-sm-12" />
-																							</div>
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">
-																					Nome da Mãe:	
-																					</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="email">Nome do Pai:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="text" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Sexo:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div>
-																							<label class="blue">
-																								<input name="gender" value="1" type="radio" class="ace" />
-																								<span class="lbl"> Male</span>
-																							</label>
-																						</div>
-
-																						<div>
-																							<label class="blue">
-																								<input name="gender" value="2" type="radio" class="ace" />
-																								<span class="lbl"> Female</span>
-																							</label>
-																						</div>
-																					</div>
-																				</div>
-
-																				<div class="hr hr-dotted"></div>
-
-				<div class="form-group">
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">
-																					Usuário:	
-																					</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="email" name="email" id="email" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																					<label class="control-label col-xs-12 col-sm-2 no-padding-right">Senha:</label>
-
-																					<div class="col-xs-12 col-sm-3">
-																						<div class="clearfix">
-																							<input type="password" class="col-xs-12 col-sm-12" />
-																						</div>
-																					</div>
-
-																				</div>
-
-																				<div class="row-fluid">
-																					<input type="button" class="btn btn-success btn-next" data-last="Salvar" value="Salvar">
-																				</div>
-																			</form>
-																		</div>
-																	</div>
-																</div><!-- /widget-main -->
-															</div><!-- /widget-body -->
+															<div>
+																<label class="blue">
+																	<input ng-model="student.sex" name="gender" value="2" type="radio" class="ace" />
+																	<span class="lbl"> Female</span>
+																</label>
+															</div>
 														</div>
 													</div>
-												</div>
-											</div><!-- /.col -->
-										</div><!-- /.row -->
-									</div><!-- /.page-content -->
-								</div><!-- /.main-content -->
-							</div><!-- /.main-container-inner -->
-			<script type="text/javascript" src="controllers/alunoController.js"></script>
+
+													<div class="hr hr-dotted"></div>
+
+													<div class="form-group">
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">
+															Usuário:	
+														</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input type="text" ng-model="student.user.username" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+														<label class="control-label col-xs-12 col-sm-2 no-padding-right">Senha:</label>
+
+														<div class="col-xs-12 col-sm-3">
+															<div class="clearfix">
+																<input ng-model="student.user.password" type="password" class="col-xs-12 col-sm-12" />
+															</div>
+														</div>
+
+													</div>
+
+													<div class="row-fluid">
+														<input id="btnSaveStudent" type="button" class="btn btn-success btn-next" data-last="Salvar" value="Salvar">
+													</div>
+												</form>
+											</div>
+										</div>
+									</div><!-- /widget-main -->
+								</div><!-- /widget-body -->
+							</div>
+						</div>
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+	</div><!-- /.main-content -->
+</div><!-- /.main-container-inner -->
+<script type="text/javascript" src="controllers/alunoController.js"></script>

@@ -9,7 +9,7 @@
 										</div>
 
 										<div class="table-responsive">
-											<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+											<table id="tblListStudents" ng-table="tableParams" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
 														<th>Nome</th>
@@ -21,13 +21,13 @@
 												</thead>
 
 												<tbody>
-													<tr>
-														<td>Caio</td>
-														<td>98571-0029</td>
-														<td>Rua João Teixeira Álvares</td>
+													<tr ng-repeat="un in listStudents">
+														<td>{{un.name}}</td>
+														<td>{{un.phone}}</td>
+														<td>{{un.address}}</td>
 
 														<td>
-														CFC
+														{{un.name}}
 														</td>
 
 														<td>
@@ -36,7 +36,7 @@
 																	<i class="icon-zoom-in bigger-130"></i>
 																</a>
 
-																<a class="green" href="#">
+																<a class="green" ng-click="EditStudent(un)" href="#">
 																	<i class="icon-pencil bigger-130"></i>
 																</a>
 
