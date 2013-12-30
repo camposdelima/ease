@@ -67,18 +67,6 @@ class Lessons extends MY_Controller {
 	}
 	
 	protected function Set($data, $entity) {
-
-		$this->SetEntityMember($data, 'branch');		
-		$this->SetEntityMember($data, 'user');							
-		$this->SetEntityMember($data, 'city');	
-		$this->SetEntityMember($data, 'placeOfBirth', 'City');					
-		
-		$this->SetNumericMember($data, 'cellularPhone');
-		$this->SetNumericMember($data, 'phone');
-				
-		$this->SetDateMember($data, 'birthdate');		
-
-		
 		parent::Set($data, $entity);		
 	} 
 	

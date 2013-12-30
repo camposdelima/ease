@@ -31,13 +31,6 @@ class Employees extends MY_Controller {
 	
 	protected function Set($data, $entity) {
 					
-		if(isset($data->school)) {
-			if(isset($data->school->id))
-				$data->school	= 	$this->em->find('Entities\School', $data->school->id);
-			else
-				unset($data->school);
-		}
-					
 		if(isset($data->departments)) {
 			if (is_array($data->departments)) {
 				$arr = new Doctrine\Common\Collections\ArrayCollection();
@@ -51,16 +44,8 @@ class Employees extends MY_Controller {
 			
 		}
 		
+		$this->SetEntityMember($data, 'user');
 		
-		if(isset($data->user)) {
-			if(isset($data->user->id))			
-				$data->user 	= 	$this->em->find('Entities\User', $data->user->id);
-			else 
-				unset($data->user);			
-		}
-
-		
-			
 		parent::Set($data, $entity);
 	} 
 	

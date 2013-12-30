@@ -26,6 +26,8 @@ class MY_Controller extends CI_Controller {
 	protected function Save($entityName) {
 				
 		$data = $this->GetPostJSON();
+
+		
 		
 		if($data == null) {			
 			return;
@@ -75,7 +77,7 @@ class MY_Controller extends CI_Controller {
 	
 	
 	protected function GetPostJSON() {
-		$data = ($this->input->post('data')?:$this->input->get('data'));
+		$data = file_get_contents('php://input');//($this->input->post('data')?:$this->input->get('data'));	
 		
 		$data = json_decode($data);
 		
@@ -116,8 +118,8 @@ class MY_Controller extends CI_Controller {
 		}
 	}
 	
-	protected function SetNumericMember($data, $key) {
-		if(strlen($data->$key) > 0 && !is_numeric($data->$key)) 
+	protected function SetNumericMember($data, $key) {		
+		if(key_exists($key, $data) && strlen($data->$key) > 0 && !is_numeric($data->$key)) 
 			unset($data->$key);					
 	}
 	
