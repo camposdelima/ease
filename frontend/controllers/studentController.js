@@ -7,7 +7,8 @@ function createStudentController($scope, $http) {
 	$('#btnSaveStudent').click(function(){
 		var data = new Object();
 		data.data = ng.student;
-		aj.post('Students/Save', data).success(function(result){
+		ng.student.branch = {'id': 1};
+		aj.post('Students/Save', ng.student).success(function(result){
 			console.log(result);
 		});
 	});
