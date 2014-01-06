@@ -25,10 +25,14 @@ class Employees extends MY_Controller {
 	}
 	
 	public function Save() {
-		$this->Persist('Employee\Employee');		
+		parent::Save('Employee\Employee');		
 	}
 	
+	public function Delete() {
+		parent::Delete('Employee\Employee');		
+	}
 	
+		
 	protected function Set($data, $entity) {
 					
 		if(isset($data->departments)) {

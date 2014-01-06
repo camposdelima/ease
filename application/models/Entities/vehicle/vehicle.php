@@ -54,5 +54,11 @@ class Vehicle extends \Entities\MY_Entity
      * @Column(name="ano", type="integer", nullable=false)
      */
     protected $year;
-
+	
+	public function ToArray($all = false, $fields = null) {			
+		if(!$all && $fields == null)
+			$fields = array("id", "plate", "model");
+			
+		return parent::ToArray($all , $fields);
+	}
 }

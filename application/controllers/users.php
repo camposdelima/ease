@@ -7,7 +7,7 @@ class Users extends MY_Controller {
     }
 	
 	public function Authenticate() {
-		$data = $this->GetPostJSON();
+		$data = $this->GetJSON();
 		
 		$username = (isset($data->username)?$data->username:null);
 		$pass = (isset($data->password)?$data->password:null);

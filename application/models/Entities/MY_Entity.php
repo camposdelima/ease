@@ -15,6 +15,10 @@ class MY_Entity {
 		return $this->active;
 	}	
 	
+	public function SetInactive() {
+		$this->active = false;	
+	}
+	
 	public function Set($data) {
 		
 		foreach($data as $key => $property) {		
@@ -24,8 +28,11 @@ class MY_Entity {
 		
 	}	
 	
-	public function ToArray($fields = null) {	
+	public function ToArray($all = false, $fields = null) {
+				
 		
+		if(!$all && $fields == null)	
+			$fields = array("id", "name"); 
 		
 		$result = array();
 		
@@ -38,18 +45,21 @@ class MY_Entity {
 		return $result;
 	}
 	
-	public static function DataExtract($data) {
+	public static function DataExtract($data, $all=false, $fields=null) {
 		$result = $data;
-				
+					
    		if( (is_object($data) && strpos(get_class($data), "Collection") > 0) || is_array($data) ) {		
 			$result = array();
-													
-			for($i = 0; $i < count($data);$i++) {											
-				$result[$i] = $data[$i]->ToArray();
+
+			for($i = 0; $i < count($data);$i++) {
+				if(isset($keys)) {
+					echo $keys[$i];
+				}											
+				$result[$i] = $data[$i]->ToArray($all, $fields);
 			}
 		}
 		elseif(is_object($data) && get_class($data) != "DateTime") {
-			$result = $data->ToArray();			
+			$result = $data->ToArray($all, $fields);			
 		}
 			
 						

@@ -42,7 +42,7 @@ class Doctrine
         $this->em = EntityManager::create($connection_options, $config);
 
 
-//  		$logger = new EchoSQLLogger;
+  	//	$logger = new EchoSQLLogger;
 //    	$config->setSQLLogger($logger);
 	
         $loader = new ClassLoader($models_namespace, $models_path);
