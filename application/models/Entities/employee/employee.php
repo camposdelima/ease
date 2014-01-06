@@ -44,6 +44,5 @@ class Employee extends \Entities\MY_Entity
  	public function __construct()
     {
         $this->departaments = new ArrayCollection();
-    }	
-	
+    }		
 }

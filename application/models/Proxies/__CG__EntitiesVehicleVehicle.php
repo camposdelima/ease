@@ -42,6 +42,12 @@ class Vehicle extends \Entities\Vehicle\Vehicle implements \Doctrine\ORM\Proxy\P
     }
 
     
+    public function ToArray($all = false, $fields = NULL)
+    {
+        $this->__load();
+        return parent::ToArray($all, $fields);
+    }
+
     public function GetID()
     {
         $this->__load();
@@ -54,16 +60,16 @@ class Vehicle extends \Entities\Vehicle\Vehicle implements \Doctrine\ORM\Proxy\P
         return parent::IsActive();
     }
 
+    public function SetInactive()
+    {
+        $this->__load();
+        return parent::SetInactive();
+    }
+
     public function Set($data)
     {
         $this->__load();
         return parent::Set($data);
-    }
-
-    public function ToArray($fields = NULL)
-    {
-        $this->__load();
-        return parent::ToArray($fields);
     }
 
 

@@ -54,16 +54,22 @@ class Model extends \Entities\Vehicle\Model implements \Doctrine\ORM\Proxy\Proxy
         return parent::IsActive();
     }
 
+    public function SetInactive()
+    {
+        $this->__load();
+        return parent::SetInactive();
+    }
+
     public function Set($data)
     {
         $this->__load();
         return parent::Set($data);
     }
 
-    public function ToArray($fields = NULL)
+    public function ToArray($all = false, $fields = NULL)
     {
         $this->__load();
-        return parent::ToArray($fields);
+        return parent::ToArray($all, $fields);
     }
 
 

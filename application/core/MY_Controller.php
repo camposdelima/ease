@@ -16,7 +16,7 @@ class MY_Controller extends CI_Controller {
 		$collection = $this->em->getRepository($this->GetEntityName($entityName))->findByActive(1);
 
 		try {		
-			$this->WriteJSON(\Entities\MY_Entity::DataExtract($collection));
+			$this->WriteJSON(\Entities\MY_Entity::DataExtract($collection, true));
 		} catch(Exception $e) {
 			print_r($e);
 		}
@@ -25,8 +25,7 @@ class MY_Controller extends CI_Controller {
 	
 	protected function Save($entityName) {
 				
-		$data = $this->GetPostJSON();
-
+		$data = $this->GetJSON();
 		
 		
 		if($data == null) {			
@@ -44,20 +43,20 @@ class MY_Controller extends CI_Controller {
 			$entityName = $this->GetEntityName($entityName);						
 			$entity = new $entityName();					
 		}	
-	
-		$this->Set($data, $entity);
 			
-		$this->em->persist($entity);	
-		$this->Flush();
+		 
+		$this->Set($data, $entity);
+
+		
+		$this->Flush($entity);
 		
 		$this->WriteJSON($entity->GetID());
 	}
 	
 	
 	protected function Delete($entityName) {
-		$data = $this->GetPostJSON();
-		
-			
+		$data = $this->GetJSON();
+					
 		if($data == null) {			
 			return;
 		}		
@@ -68,16 +67,21 @@ class MY_Controller extends CI_Controller {
 			return;
 		}		
 		
-		$this->em->remove($entity);
-		$this->Flush();
+		
+		$entity->SetInactive();					
+		
+		$this->Flush($entity);
 		
 		$this->WriteJSON($data->id);
 	}
 	
 	
 	
-	protected function GetPostJSON() {
+	protected function GetJSON($nullable=false) {
 		$data = file_get_contents('php://input');//($this->input->post('data')?:$this->input->get('data'));	
+		
+		if($data == null && $nullable)
+			return false;
 		
 		$data = json_decode($data);
 		
@@ -87,10 +91,18 @@ class MY_Controller extends CI_Controller {
 		
 		return $data;
 	}
-	
 	private function FindEntity($data, $entityName) {				
 		
-		$entity = $this->em->find($this->GetEntityName($entityName), (isset($data->id)?$data->id:0));
+		if(!is_numeric($data)) {			
+			if(key_exists('id', $data))
+				$data=  $data->id;
+			else 
+				$data = 0;
+		}
+		
+		
+		
+		$entity = $this->em->find($this->GetEntityName($entityName), $data);
 				
 		if($entity == null) {			
 			$this->WriteJSON(null, 'A referência primária ao elemento "'.$entityName.'" é inválida.');
@@ -100,21 +112,23 @@ class MY_Controller extends CI_Controller {
 		return $entity;
 	}
 	
-	Private function Flush() {		
-		try {			
-			$this->em->flush();
-		} catch(Exception $ex) {			
+	Private function Flush($entity) {		
+		try {
+//			print_r($entity);			
+			$this->em->persist($entity);				
+			$this->em->flush();	
+		} catch(Exception $ex) {
 			$this->WriteJSON(null, $ex->getMessage());	
-		}	
+		}
 	}
 	
 	
 	protected function SetEntityMember($data, $key, $entityName = null) {
 		if(isset($data->$key)) {
 			if(is_object($data->$key))
-				$data->$key = $data->$key->id;
-			 	
-			$data->$key	= $this->em->find($this->GetEntityName(($entityName?:$key)), $data->$key);
+				$data->$key = $data->$key->id;			
+			
+			$data->$key	= $this->FindEntity($data->$key, ($entityName?:$key));
 		}
 	}
 	
@@ -124,8 +138,13 @@ class MY_Controller extends CI_Controller {
 	}
 	
 	protected function SetDateMember($data, $key) {
-		if(isset($data->$key)) {			
-			$data->$key = new Datetime($data->$key);
+		if(isset($data->$key)) {
+			try {
+				$data->$key = new Datetime($data->$key);				
+			} catch(Exception $e) {
+				$data->$key = null;
+				$this->WriteJSON(null, 'A propriedade de tempo e data "'.$key.'" é inválida.');
+			}
 		}
 	}	
 	
