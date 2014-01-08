@@ -1,5 +1,8 @@
 function loginController($scope, $http) {
 
+	$scope.tpl = {};
+	$scope.tpl.contentUrl = 'frontend/login.html';
+
 	var ng = $scope;
 	var aj = $http;
 
@@ -7,7 +10,11 @@ function loginController($scope, $http) {
 			e.preventDefault();
 			console.log(ng.user);
 			  aj.post('Users/Authenticate', ng.user).success(function(data) {
-			    alert(data.message);
+			    if (data.success){
+					$scope.tpl.contentUrl = 'frontend/login.html';
+				} else {
+				//Todo alert error login
+				}
   			  });
 
 		});

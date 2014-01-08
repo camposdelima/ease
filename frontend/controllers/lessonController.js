@@ -9,6 +9,8 @@ function CalendarCtrl($scope, $http, $rootScope) {
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
+	var currentDate = null;
+	
 	
 	toDatePicker('.date-picker');
 
@@ -18,7 +20,8 @@ function CalendarCtrl($scope, $http, $rootScope) {
     ng.otherEvents = [];
     ng.events = [];	
     ng.lessonsFilter = {};
-    ng.filter = {};
+    ng.currentLesson = {};
+	ng.filter = {};
 
     ng.getStudent = function(){
     	aj.get('Students/Get').success(function(result){
@@ -38,11 +41,9 @@ function CalendarCtrl($scope, $http, $rootScope) {
     	});
     };
 
-    	ng.getLessons = function(filter){
-	    	
-	    	aj.post('Lessons/Get', filter).success(function(result){
+    	ng.getLessons = function(){
+	    	aj.post('Lessons/Get', ng.filter).success(function(result){
 	    	  result = $(result.data);
-	    	  console.log(result);
 			  result.each(function(){
 				this.title = this.employee.name + ' - ' + this.vehicle.plate;
 				this.start = this.start.date;
@@ -65,6 +66,15 @@ function CalendarCtrl($scope, $http, $rootScope) {
 			 }
 			});
 	};
+	
+	ng.clearDays = function(){
+		ng.$apply(function(){
+			 for(var i = 0; i < ng.events.length; i++)
+			 {
+				ng.events.splice(i);
+			 }
+			});
+	};
 
     /* event source that calls a function on every view switch */
     ng.eventsF = function (start, end, callback) {
@@ -75,21 +85,34 @@ function CalendarCtrl($scope, $http, $rootScope) {
     /* alert on eventClick */
     ng.alertEventOnClick = function( date, allDay, jsEvent, view ){
 
+		if (jsEvent.name == 'agendaMonth')
+		{
+		  currentDate = date.day;
     	  ng.changeView('agendaDay', ng.myCalendar1);		  
 		  ng.changeDate(ng.myCalendar1,date.start);
-		  var filter = new Object();
-		  filter.minDate = date.day;
-		  filter.maxDate = date.start;
-		  filter.maxDate.setHours(23);	
-		  ng.getLessons(filter);
-
-
-		  console.log('isso é alertEventOnClick');
+		  ng.filter.minDate = date.day;
+		  ng.filter.maxDate = date.start;
+		  ng.filter.maxDate.setHours(23);	
+		  ng.getLessons();
+		}
 		  
 		  //EVENTO NO CLICK DO DIA DA AGENDA
 		  if (jsEvent.name == 'agendaDay')
 		  {
-			console.log(date);
+			//Mesmo dia ele abre o modal para o save do Aluno
+			if(currentDate == date.day)
+			{
+				ng.currentLesson = date;
+				//To do open-modal
+			} else {
+			//Faz a pesquisa denovo pq é outro dia.
+				currentDate = date.day;
+				ng.changeDate(ng.myCalendar1,date.start);
+			    ng.filter.minDate = date.day;
+			    ng.filter.maxDate = date.start;
+			    ng.filter.maxDate.setHours(23);	
+			    ng.getLessons();
+			}
 		  }
     };
 	
@@ -188,7 +211,8 @@ function CalendarCtrl($scope, $http, $rootScope) {
     ng.eventSources2 = [ng.calEventsExt, ng.eventsF, ng.events];
 
     ng.getDays = function(){
-    	console.log(ng.filter)
+    	ng.clearDays();
+		console.log(ng.filter);
     	aj.post('Lessons/GetDays', ng.filter).success(function(result){
     		result = $(result.data);
     		console.log(result);
@@ -204,6 +228,14 @@ function CalendarCtrl($scope, $http, $rootScope) {
 		});
     };
 
+	
+	ng.alterLessonDayByDate = function(date){
+			ng.alterEvent();
+			currentDate = date.day;
+			ng.filter.maxDate.setHours(23);	
+			ng.getLessons();
+	};
+	
     $(document).ready(function(){
 
 		ng.getStudent();
@@ -228,22 +260,20 @@ function CalendarCtrl($scope, $http, $rootScope) {
 				$('.icon').removeClass('icon-angle-down').addClass('icon-angle-right');
 			}
 		});
-
-		$('.fc-button-prev').click(function(){
-			console.log($scope.myCalendar1.fullCalendar('getView')); // Pegar a data atual;
-			alert($scope.myCalendar1.fullCalendar('getDate')); // Pegar a data atual;
+	
+	
+		$('#calendar').on('click','.fc-button-prev', function(){
+			ng.alterLessonDayByDate(ng.myCalendar1.fullCalendar('getView'));
 		});
 		
-		$('.fc-button-next').click(function(){
-			alert($scope.myCalendar1.fullCalendar('getDate')); // Pegar a data atual;
+		$('#calendar').on('click','.fc-button-next', function(){
+			ng.alterLessonDayByDate(ng.myCalendar1.fullCalendar('getView'));
 		});
 		
-		$('.fc-button-today').click(function(){
-			alert($scope.myCalendar1.fullCalendar('getDate')); // Pegar a data atual;
+		$('#calendar').on('click','.fc-button-today', function(){
+			ng.alterLessonDayByDate(ng.myCalendar1.fullCalendar('getView'));
 		});
 	});
-
-
 };
 
 

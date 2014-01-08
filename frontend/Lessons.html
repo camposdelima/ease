@@ -48,6 +48,16 @@
 
 											<div class="col-sm-12">
 											
+													 <select
+													chosen
+													allow-single-deselect="true"
+													data-placeholder="Choose Your Own Adventure"
+													no-results-text="'Tough luck'"
+													ng-model="baz"
+													ng-options="value for (key,value) in listStudents
+													style="width:200px;">
+													<option value=""></option>
+												  </select>
 													<select ng-model="filter.student" ng-options="item as item.name for item in listStudents" class="col-xs-12 col-sm-12" id="form-field-select-1" >
 																	<option value="">Selecione</option>
 																</select>
