@@ -165,6 +165,17 @@ angular.module('ui.calendar', [])
             eventsWatcher = controller.changeWatcher(controller.allEvents, controller.eventsFingerprint),
             options = null;
         
+          scope.safeApply = function(fn) {
+            var phase = this.$root.$$phase;
+            if(phase == '$apply' || phase == '$digest') {
+              if(fn && (typeof(fn) === 'function')) {
+                fn();
+              }
+            } else {
+              this.$apply(fn);
+            }
+          };
+
         function getOptions(){
           options = { eventSources: sources };
           angular.extend(options, uiCalendarConfig, attrs.uiCalendar ? scope.$parent.$eval(attrs.uiCalendar) : {});
@@ -186,29 +197,32 @@ angular.module('ui.calendar', [])
         };
         
         scope.init = function(){
-          scope.calendar.fullCalendar(options);
+          //console.log(scope.calendar);
+          //scope.safeApply(function(){
+          $(scope.calendar).fullCalendar(options);
+          //});
         };
 
         eventSourcesWatcher.onAdded = function(source) {
-          scope.calendar.fullCalendar('addEventSource', source);
+          $(scope.calendar).fullCalendar('addEventSource', source);
           sourcesChanged = true;
         };
 
         eventSourcesWatcher.onRemoved = function(source) {
-          scope.calendar.fullCalendar('removeEventSource', source);
+          $(scope.calendar).fullCalendar('removeEventSource', source);
           sourcesChanged = true;
         };
 
         eventsWatcher.onAdded = function(event) {
-          scope.calendar.fullCalendar('renderEvent', event);
+          $(scope.calendar).fullCalendar('renderEvent', event);
         };
 
         eventsWatcher.onRemoved = function(event) {
-          scope.calendar.fullCalendar('removeEvents', function(e) { return e === event; });
+          $(scope.calendar).fullCalendar('removeEvents', function(e) { return e === event; });
         };
 
         eventsWatcher.onChanged = function(event) {
-          scope.calendar.fullCalendar('updateEvent', event);
+          $(scope.calendar).fullCalendar('updateEvent', event);
         };
 
         scope.destroy();
@@ -218,7 +232,7 @@ angular.module('ui.calendar', [])
         eventsWatcher.subscribe(scope, function(newTokens, oldTokens) {
           if (sourcesChanged) {
             // Rerender the whole thing if a new event source was added/removed
-            scope.calendar.fullCalendar('rerenderEvents');
+            $(scope.calendar).fullCalendar('rerenderEvents');
             sourcesChanged = false;
             // prevent incremental updates in this case
             return false;

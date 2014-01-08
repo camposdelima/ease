@@ -1,11 +1,11 @@
 function indexController($scope, $http) {
-
 	$scope.tpl = {};
 	$scope.tpl.contentUrl = 'frontend/dashboard.html';
 	//Faz os loads ajax entre as telas
 	$('.menu-load').click(function() {
 		var page = $(this).attr('data-page');
 		$scope.tpl.contentUrl = page;
+		$scope.$apply();
 		var li = $(this).parent().next().html();
 		$('.breadcrumb').children().remove();
 		$('.breadcrumb').append(li);

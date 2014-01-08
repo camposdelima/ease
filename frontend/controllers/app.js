@@ -1,4 +1,4 @@
-angular.module('app',['ngTable']).service('sharedProperties', function () {
+/*angular.module('app',['ngTable']).service('sharedProperties', function () {
         var value = null;
 
         return {
@@ -9,4 +9,6 @@ angular.module('app',['ngTable']).service('sharedProperties', function () {
                 value = val;
             }
         };
-    });
+    });*/
+
+var module = angular.module('myApp', ['ui.calendar', 'ui.bootstrap']);

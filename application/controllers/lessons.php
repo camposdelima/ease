@@ -20,7 +20,7 @@ class Lessons extends MY_Controller {
 			 
 			$collection =  $this->em->getRepository($this->GetEntityName('Lesson'))->matching($criteria);			
 			
-			$this->WriteJSON(\Entities\MY_Entity::DataExtract($collection, true));
+			$this->WriteJSON(\Entities\MY_Entity::DataExtract($collection, true), null, $collection != null);
 		} catch(Exception $e) {
 			print_r($e);
 		}
