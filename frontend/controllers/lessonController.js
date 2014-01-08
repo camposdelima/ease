@@ -82,6 +82,16 @@ function CalendarCtrl($scope, $http, $rootScope) {
       callback(events);
     };
 	
+	ng.getFiltersForLessons = function(date){
+		  var filter = new Object();
+-		  filter.minDate = date;
+-		  filter.maxDate = date;
+		  filter.employee = ng.filter.employee;
+		  filter.student = ng.filter.student;
+		  filter.category = ng.filter.category;
+		  return filter;
+	};
+	
     /* alert on eventClick */
     ng.alertEventOnClick = function( date, allDay, jsEvent, view ){
 
@@ -90,10 +100,7 @@ function CalendarCtrl($scope, $http, $rootScope) {
 		  currentDate = date.day;
     	  ng.changeView('agendaDay', ng.myCalendar1);		  
 		  ng.changeDate(ng.myCalendar1,date.start);
-		  ng.filter.minDate = date.day;
-		  ng.filter.maxDate = date.start;
-		  ng.filter.maxDate.setHours(23);	
-		  ng.getLessons();
+		  ng.getLessons(ng.getFiltersForLessons(date.day));
 		}
 		  
 		  //EVENTO NO CLICK DO DIA DA AGENDA
@@ -108,10 +115,7 @@ function CalendarCtrl($scope, $http, $rootScope) {
 			//Faz a pesquisa denovo pq é outro dia.
 				currentDate = date.day;
 				ng.changeDate(ng.myCalendar1,date.start);
-			    ng.filter.minDate = date.day;
-			    ng.filter.maxDate = date.start;
-			    ng.filter.maxDate.setHours(23);	
-			    ng.getLessons();
+			    ng.getLessons(ng.getFiltersForLessons(date.day));
 			}
 		  }
     };
@@ -231,9 +235,8 @@ function CalendarCtrl($scope, $http, $rootScope) {
 	
 	ng.alterLessonDayByDate = function(date){
 			ng.alterEvent();
-			currentDate = date.day;
-			ng.filter.maxDate.setHours(23);	
-			ng.getLessons();
+			currentDate = date;
+			ng.getLessons(ng.getFiltersForLessons(date));
 	};
 	
     $(document).ready(function(){
