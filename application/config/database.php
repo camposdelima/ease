@@ -48,11 +48,11 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = '186.202.152.45';
-$db['default']['username'] = 'site13667451081';
-$db['default']['password'] = 'j0k3r5';
-$db['default']['database'] = 'site13667451081';
-$db['default']['dbdriver'] = 'postgre';
+$db['default']['hostname'] = '';
+$db['default']['username'] = '';
+$db['default']['password'] = '';
+$db['default']['database'] = '';
+$db['default']['dbdriver'] = '';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
